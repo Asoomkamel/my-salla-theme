@@ -1,0 +1,61 @@
+{
+  "name": "My Custom Theme",
+  "version": "1.0.0",
+  "description": "A custom Salla theme based on Theme Raed",
+  "author": "Your Name",
+  "settings": {
+    "color_primary": {
+      "type": "color",
+      "label": "Primary Color",
+      "value": "#6366f1"
+    },
+    "color_secondary": {
+      "type": "color",
+      "label": "Secondary Color",
+      "value": "#8b5cf6"
+    }
+  },
+  "features": [
+    "youtube",
+    "fixed_banner",
+    "testimonials",
+    "parallax_background",
+    "photos_slider",
+    "store_features",
+    "square_photos",
+    "fixed_products",
+    "products_slider",
+    "featured_products_style1",
+    "featured_products_style2",
+    "featured_products_style3",
+    "latest_products",
+    "vertical_menu_with_slider"
+  ],
+  "components": [
+    {
+      "name": "brands",
+      "path": "views/components/home/brands.twig",
+      "title": "Brands"
+    },
+    {
+      "name": "enhanced_square_banners",
+      "path": "views/components/home/enhanced-square-banners.twig",
+      "title": "Enhanced Square Banners"
+    },
+    {
+      "name": "main_links",
+      "path": "views/components/home/main-links.twig",
+      "title": "Main Links"
+    },
+    {
+      "name": "enhanced_slider",
+      "path": "views/components/home/enhanced-slider.twig",
+      "title": "Enhanced Slider"
+    },
+    {
+      "name": "slider_products_with_header",
+      "path": "views/components/home/slider-products-with-header.twig",
+      "title": "Slider Products with Header"
+    }
+  ]
+}

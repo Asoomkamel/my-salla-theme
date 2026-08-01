@@ -1,0 +1,174 @@
+{#
+    Home Page Template
+    This is the main homepage of your Salla store
+#}
+
+<div class="min-h-screen bg-gray-50">
+
+    {# Hero Section #}
+    <section class="relative bg-gradient-to-r from-custom-primary to-custom-secondary text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIj48L2NpcmNsZT48L2c+PC9nPjwvc3ZnPg==')]"></div>
+        </div>
+        <div class="container mx-auto px-4 py-20 md:py-32 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    {{ store.name }}
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-8">
+                    {{ store.description }}
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ link('products') }}" class="inline-block bg-white text-custom-primary px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg">
+                        {{ trans('site.shop_now') }}
+                    </a>
+                    <a href="{{ link('contact') }}" class="inline-block bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition border border-white/30">
+                        {{ trans('site.contact_us') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Featured Products Section #}
+    <section class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+                    {{ trans('site.featured_products') }}
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    {{ trans('site.featured_products_desc') }}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {% if featured_products %}
+                    {% for product in featured_products %}
+                        {% component 'product-card' with {product: product} %}
+                    {% endfor %}
+                {% else %}
+                    {# Sample Products for Demo #}
+                    {% for i in 1..4 %}
+                        <div class="bg-white rounded-2xl shadow-card overflow-hidden hover:shadow-hover transition-shadow duration-300">
+                            <div class="relative aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                                <div class="text-gray-400">
+                                    <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                    </svg>
+                                </div>
+                                <span class="absolute top-3 left-3 badge-gradient text-white text-xs px-3 py-1 rounded-full">-20%</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-dark mb-1 line-clamp-2">Product Title {{ i }}</h3>
+                                <p class="text-gray-500 text-sm mb-2">Category Name</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xl font-bold text-custom-primary">$99.00</span>
+                                    <button class="w-10 h-10 bg-custom-primary text-white rounded-lg flex items-center justify-center hover:bg-opacity-90 transition">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="{{ link('products') }}" class="inline-flex items-center text-custom-primary font-semibold hover:text-custom-secondary transition">
+                    {{ trans('site.view_all_products') }}
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {# Categories Section #}
+    <section class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+                    {{ trans('site.shop_by_category') }}
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {% for category in categories %}
+                    <a href="{{ category.url }}" class="group bg-white rounded-2xl p-6 text-center hover:shadow-hover transition-all duration-300">
+                        <div class="w-20 h-20 bg-gradient-to-br from-custom-primary/10 to-custom-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-10 h-10 text-custom-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-dark group-hover:text-custom-primary transition">{{ category.name }}</h3>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {# Store Features Section #}
+    <section class="py-16 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-dark mb-1">{{ trans('site.free_shipping') }}</h4>
+                    <p class="text-gray-500 text-sm">{{ trans('site.free_shipping_desc') }}</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-dark mb-1">{{ trans('site.fast_delivery') }}</h4>
+                    <p class="text-gray-500 text-sm">{{ trans('site.fast_delivery_desc') }}</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-dark mb-1">{{ trans('site.secure_payment') }}</h4>
+                    <p class="text-gray-500 text-sm">{{ trans('site.secure_payment_desc') }}</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-dark mb-1">{{ trans('site.support_24_7') }}</h4>
+                    <p class="text-gray-500 text-sm">{{ trans('site.support_24_7_desc') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Newsletter Section #}
+    <section class="py-16 md:py-24 hero-gradient text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ trans('site.newsletter_title') }}</h2>
+                <p class="text-white/80 mb-8">{{ trans('site.newsletter_desc') }}</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="{{ trans('site.enter_email') }}" class="flex-1 px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/60 focus:outline-none focus:border-white/50 transition">
+                    <button type="submit" class="px-8 py-4 bg-white text-custom-primary rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg">
+                        {{ trans('site.subscribe') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</div>

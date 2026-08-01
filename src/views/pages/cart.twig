@@ -1,0 +1,113 @@
+{#
+    Cart Page Template
+    Shopping cart page
+#}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-dark mb-8">{{ trans('site.shopping_cart') }}</h1>
+
+        {% if cart.items|length > 0 %}
+            <div class="grid lg:grid-cols-3 gap-8">
+                {# Cart Items #}
+                <div class="lg:col-span-2 space-y-4">
+                    {% for item in cart.items %}
+                        <div class="bg-white rounded-2xl shadow-card p-6 flex items-center space-x-6">
+                            {# Product Image #}
+                            <div class="w-24 h-24 bg-gray-100 rounded-xl flex-shrink-0">
+                                <svg class="w-full h-full p-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                </svg>
+                            </div>
+
+                            {# Product Info #}
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-dark">{{ item.product.name }}</h3>
+                                <p class="text-gray-500 text-sm mt-1">SKU: {{ item.product.sku }}</p>
+                                <p class="text-gray-500 text-sm">{{ item.product.price|price }}</p>
+                            </div>
+
+                            {# Quantity #}
+                            <div class="flex items-center border-2 border-gray-200 rounded-lg">
+                                <button class="px-3 py-2 text-gray-600 hover:text-custom-primary transition">-</button>
+                                <span class="px-4 py-2 font-medium">{{ item.quantity }}</span>
+                                <button class="px-3 py-2 text-gray-600 hover:text-custom-primary transition">+</button>
+                            </div>
+
+                            {# Subtotal #}
+                            <div class="text-right">
+                                <span class="text-lg font-bold text-custom-primary">{{ item.subtotal|price }}</span>
+                            </div>
+
+                            {# Remove Button #}
+                            <button class="text-gray-400 hover:text-red-500 transition">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    {% endfor %}
+
+                    {# Coupon #}
+                    <div class="bg-white rounded-2xl shadow-card p-6">
+                        <div class="flex space-x-4">
+                            <input type="text" placeholder="{{ trans('site.coupon_code') }}" class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-custom-primary outline-none transition">
+                            <button class="px-6 py-3 bg-dark text-white rounded-xl font-semibold hover:bg-opacity-90 transition">
+                                {{ trans('site.apply_coupon') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {# Cart Summary #}
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl shadow-card p-6 sticky top-24">
+                        <h3 class="text-xl font-bold text-dark mb-6">{{ trans('site.cart_summary') }}</h3>
+
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">{{ trans('site.subtotal') }}</span>
+                                <span class="font-medium">{{ cart.subtotal|price }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">{{ trans('site.shipping') }}</span>
+                                <span class="font-medium text-green-600">{{ trans('site.free') }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">{{ trans('site.tax') }}</span>
+                                <span class="font-medium">{{ cart.tax|price }}</span>
+                            </div>
+                            <hr>
+                            <div class="flex justify-between text-lg">
+                                <span class="font-bold text-dark">{{ trans('site.total') }}</span>
+                                <span class="font-bold text-custom-primary">{{ cart.total|price }}</span>
+                            </div>
+                        </div>
+
+                        <button class="w-full gradient-bg text-white px-6 py-4 rounded-xl font-semibold hover:opacity-90 transition shadow-lg shadow-purple-500/30">
+                            {{ trans('site.proceed_to_checkout') }}
+                        </button>
+
+                        <a href="{{ link('products') }}" class="block text-center mt-4 text-custom-primary font-medium hover:underline">
+                            {{ trans('site.continue_shopping') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {# Empty Cart #}
+            <div class="bg-white rounded-2xl shadow-card p-12 text-center">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-dark mb-4">{{ trans('site.your_cart_is_empty') }}</h2>
+                <p class="text-gray-600 mb-8">{{ trans('site.looks_like_you_havent_added') }}</p>
+                <a href="{{ link('products') }}" class="inline-block gradient-bg text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition shadow-lg shadow-purple-500/30">
+                    {{ trans('site.start_shopping') }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
