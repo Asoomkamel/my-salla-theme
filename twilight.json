@@ -1,61 +1,62 @@
 {
-  "name": "My Custom Theme",
   "version": "1.0.0",
+  "theme_name": "My Custom Theme",
+  "repo_url": "https://github.com/Asoomkamel/my-salla-theme",
+  "support_url": "https://salla.dev",
   "description": "A custom Salla theme based on Theme Raed",
-  "author": "Your Name",
-  "settings": {
-    "color_primary": {
+  "settings": [
+    {
       "type": "color",
       "label": "Primary Color",
+      "id": "color_primary",
+      "format": "color",
       "value": "#6366f1"
     },
-    "color_secondary": {
+    {
       "type": "color",
       "label": "Secondary Color",
+      "id": "color_secondary",
+      "format": "color",
       "value": "#8b5cf6"
     }
-  },
+  ],
   "features": [
-    "youtube",
-    "fixed_banner",
-    "testimonials",
-    "parallax_background",
-    "photos_slider",
-    "store_features",
-    "square_photos",
-    "fixed_products",
-    "products_slider",
-    "featured_products_style1",
-    "featured_products_style2",
-    "featured_products_style3",
-    "latest_products",
-    "vertical_menu_with_slider"
+    "component-youtube",
+    "component-fixed-banner",
+    "component-testimonials",
+    "component-parallax-background",
+    "component-photos-slider",
+    "component-store-features",
+    "component-square-photos",
+    "component-fixed-products",
+    "component-products-slider",
+    "component-featured-products"
   ],
   "components": [
     {
       "name": "brands",
-      "path": "views/components/home/brands.twig",
-      "title": "Brands"
+      "title": "Brands",
+      "path": "home.brands"
     },
     {
       "name": "enhanced_square_banners",
-      "path": "views/components/home/enhanced-square-banners.twig",
-      "title": "Enhanced Square Banners"
+      "title": "Enhanced Square Banners",
+      "path": "home.enhanced-square-banners"
     },
     {
       "name": "main_links",
-      "path": "views/components/home/main-links.twig",
-      "title": "Main Links"
+      "title": "Main Links",
+      "path": "home.main-links"
     },
     {
       "name": "enhanced_slider",
-      "path": "views/components/home/enhanced-slider.twig",
-      "title": "Enhanced Slider"
+      "title": "Enhanced Slider",
+      "path": "home.enhanced-slider"
     },
     {
       "name": "slider_products_with_header",
-      "path": "views/components/home/slider-products-with-header.twig",
-      "title": "Slider Products with Header"
+      "title": "Slider Products with Header",
+      "path": "home.slider-products-with-header"
     }
   ]
 }
