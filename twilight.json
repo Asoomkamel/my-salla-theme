@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "theme_name": "My Custom Theme",
+  "name": "My Custom Theme",
   "repo_url": "https://github.com/Asoomkamel/my-salla-theme",
   "support_url": "https://salla.dev",
   "description": "A custom Salla theme based on Theme Raed",
